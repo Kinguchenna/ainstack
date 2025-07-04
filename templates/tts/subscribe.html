@@ -1,0 +1,505 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %}Subscription Plans | ainhub.com/txt2mp4{% endblock %} 
+<meta name="csrf-token" content="{{ csrf_token }}">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% block content %}
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ainhub - Best Software Solution</title>
+<link rel="stylesheet" href="style.css">
+<!-- <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@100..900&display=swap" rel="stylesheet"> -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:ital,wght@0,100..1000;1,100..1000&family=Poetsen+One&display=swap"
+    rel="stylesheet">
+
+
+<body>
+
+{% include 'partials/header.html' %}
+
+    <main class="main_area">
+        <div class="main_content">
+
+            {% include 'partials/slider.html' %}
+
+            <div class="top_left_buttons">
+                <button class="hide_on_mobile"> Start your free trial </button>
+                <button> Play </button>
+                <button> Share </button>
+            </div>
+
+            <div class="page_content">
+                <h2>Choose Your Subscription Plan</h2>
+                <!-- <p>Select a plan that fits your needs.</p> -->
+                {% include 'partials/solutions.html' %}
+
+                        
+                    <center>
+                    <div style="border: 2px solid #ccc; width: 350px; padding: 10px; display: none; align-items: center;justify-content: center;align-content: center;" id="s3loader">
+                        <p style="font-weight: bold;" id="loader-message">Processing your subscription...</p>
+                        <p id="loader-message2" >Please give us a moment to process your request...</p>
+                        <!-- <img style="border: none;" width="200" data-src="{% static 'images/loader.gif' %}" /> -->
+                        <div id="response-message" style="margin-top: 10px;"></div> <!-- Success/Error message -->
+                        <div id="invoice_id" style="margin-top: 10px;"></div> <!-- Success/Error message -->
+                    </div>
+                    </center>
+
+                      
+
+                <div class="plan-container">
+                    {% if subs %}
+                    {% for sub in subs %}
+                    <div class="plan">
+                        <h3>{{ sub.name }}</h3>
+                        <p>Character Limit: {{ sub.character_limit }}</p>
+                        <div class="price">${{ sub.price }}</div>
+                        <!-- <button class="subbuttons" data-plan="{{ sub.name }}">Subscribe</button> -->
+                        <a href="#" data-plan="{{sub.name}}" class="subbuttons">Pay with Crypto</a>
+                        <br />
+                        <p>or</p>
+                        <a href="{% url 'banktransfer' sub.name %}" class="">Bank Transfer</a>
+
+                        <!-- <a href="https://nowpayments.io/payment/?iid=6017190119&source=button" target="_blank" rel="noreferrer noopener">
+        <img src="https://nowpayments.io/images/embeds/payment-button-black.svg" alt="Crypto payment button by NOWPayments">
+    </a> -->
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+
+
+
+                <div class="text_container">
+                    <h3>Subscription Plans</h3>
+
+                    <p>
+                        Choose the plan that fits your needs — from a generous free tier to powerful premium options.
+                        Whether you're converting text to speech, transcribing audio, or generating songs from text,
+                        there's a plan for every user.
+                    </p>
+
+                    <h4>Free</h4>
+                    <p>
+                        <strong>Character Limit:</strong> 3,500<br>
+                        <strong>Price:</strong> $0.00 – Always free<br>
+                        <strong>Includes:</strong> Access to all tools with basic limits<br>
+                        <em>No payment or sign-up required.</em>
+                    </p>
+
+                    <h4>Standard</h4>
+                    <p>
+                        <strong>Character Limit:</strong> 20,000<br>
+                        <strong>Price:</strong> $1.00<br>
+                        <strong>Payment Methods:</strong> Pay with Crypto or Bank Transfer<br>
+                        <strong>Includes:</strong> Higher usage limits and faster processing<br>
+                    </p>
+
+                    <h4>Premium</h4>
+                    <p>
+                        <strong>Character Limit:</strong> 50,000<br>
+                        <strong>Price:</strong> $5.00<br>
+                        <strong>Payment Methods:</strong> Pay with Crypto or Bank Transfer<br>
+                        <strong>Includes:</strong> Maximum usage, priority access, and enhanced features
+                    </p>
+
+                    <hr>
+
+                    <p>
+                        <strong>Need even more characters?</strong> Custom enterprise solutions are available. Contact
+                        us to learn more.
+                    </p>
+
+                    <p>
+                        For advanced speech control and formatting, visit the
+                        <a rel="nofollow" target="_blank"
+                            href="https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup">
+                            SSML documentation
+                        </a>.
+                    </p>
+                </div>
+
+
+
+                <div class="text_container">
+                    <h3>Generate High-Quality AI Audio for Your Audiobooks, Videos, and Podcasts:</h3>
+                    <div class="inner_page_content">
+                        <div class="first_content">
+                            <p>
+                                In the ancient land of Eldoria, where the skies were painted with mystic hues and the
+                                forests whispered secrets of old, there lived a dragon named Zephyros. Unlike the
+                                fearsome legends that haunted human hearts, Zephyros was a creature of wisdom and
+                                wonder, cherished by all.
+                                Now, with our advanced AI audio tools, you can bring stories like Zephyros’s to life.
+                                Whether you're working on audiobooks, YouTube videos, or podcasts, our tools let you
+                                transform text into studio-quality audio with ease.
+                            </p>
+                            <div class="promo_desk">
+                                <strong>Free Text to Audio – Up to 3,500 characters</strong>
+                                <div class="desktop_menu">
+                                    <button><a href="">Try It Now</a></button>
+                                </div>
+                                <p><em>Need more? Upgrade to Standard or Premium for higher limits and enhanced
+                                        features.</em></p>
+                            </div>
+                        </div>
+
+                        <div class="second_content">
+                            <div class="image-wrapper">
+                                <img src="{% static 'modern/images/img1.avif' %}" alt="Zephyros the dragon">
+                                <div class="caption">Zephyros, the wise dragon of Eldoria</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Convert Speech to Text Instantly with AI Precision:</h3>
+                    <div class="inner_page_content">
+                        <div class="second_content">
+                            <div class="image-wrapper">
+                                <img src="{% static 'modern/images/img2.avif' %}" alt="Transcription with AI">
+                                <div class="caption">Transform audio into accurate text with ease</div>
+                            </div>
+                        </div>
+                        <div class="first_content">
+                            <p>
+                                Turn voice recordings, interviews, lectures, and podcasts into clear, editable text with
+                                our AI-powered transcription tool. Whether you're a student, journalist, or content
+                                creator, you can rely on our system for fast and precise results.
+                            </p>
+
+                            <div class="promo_desk">
+                                <strong>Free Audio to Text – Up to 3,500 characters</strong>
+                                <div class="desktop_menu">
+                                    <button><a href="">Check It Out</a></button>
+                                </div>
+                                <p><em>Unlock 20,000 or 50,000 character limits with Standard or Premium plans.</em></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h4>Subscription Plans</h4>
+                    <ul>
+                        <li><strong>Free:</strong> 3,500 characters – Always free, no signup required</li>
+                        <li><strong>Standard ($1.00):</strong> 20,000 characters – Pay with Crypto or Bank Transfer</li>
+                        <li><strong>Premium ($5.00):</strong> 50,000 characters – Pay with Crypto or Bank Transfer</li>
+                    </ul>
+
+                    <p>
+                        <strong>Want more customization?</strong> For advanced voice control using tags, see the
+                        <a rel="nofollow" target="_blank"
+                            href="https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup">SSML
+                            documentation</a>.
+                    </p>
+                </div>
+
+
+
+
+                {% include 'partials/blogs.html' %}
+
+
+
+
+
+            </div>
+
+
+
+        </div>
+
+        <div class="ads_slider">
+            <div class="ads_content">
+                <h2>ads content 20%</h2>
+                <p> add description comes here </p>
+                <div class="ads_image">
+                    <img src="{% static 'modern/images/adsone.webp' %}" alt="Ad Image">
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </main>
+
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+function getCSRFToken() {
+    const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+    return tokenMeta ? tokenMeta.getAttribute('content') : '';
+}
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".subbuttons").forEach(button => {
+        button.addEventListener("click", function () {
+            const planName = this.dataset.plan;
+            this.textContent = "Processing...";
+            this.classList.add("disabled");
+            this.style.pointerEvents = "none";
+            this.style.opacity = "0.6"; 
+
+
+            // Show loader and update message
+            const loader = document.getElementById('s3loader');
+            loader.style.display = 'block';  // Make the loader visible
+            document.getElementById('loader-message').innerText = "Processing your subscription...";
+
+            // Clear any previous messages
+            const responseMessage = document.getElementById('response-message');
+            const invoice_id = document.getElementById('invoice_id');
+            responseMessage.innerText = '';
+
+            fetch(`/subscribe_user/${planName}/`, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCSRFToken(),
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+              
+                // Delay the loader hiding and redirecting by 5 seconds
+                setTimeout(() => {
+                    // Hide loader after processing
+                    // loader.style.display = 'none';
+
+                    // Display success or error message
+                    if (data.message) {
+                        responseMessage.style.color = "green"; // Success message color
+                        responseMessage.innerText = data.message; // Display success message
+                        invoice_id.innerText = 'save this ID for refrence: ' + data.invoice_id;
+                    }
+
+                    if (data.error) {
+                        document.getElementById('loader-message').innerText = "";
+                        document.getElementById('loader-message2').innerText = "";
+                        responseMessage.style.color = "red"; // Error message color
+                        responseMessage.innerText = data.error; // Display error message
+                    }
+
+
+                    // if (data.details) {
+                    //     console.log(data);
+                    // }
+
+                    // Redirect after success (after delay)
+                    if (data.invoice_url) {
+                         window.location.href = data.invoice_url;
+                    }
+                }, 5000); // 5000 ms = 5 seconds
+            })
+            .catch(error => {
+                // Delay the loader hiding and error message display by 5 seconds
+                setTimeout(() => {
+                    // Hide loader and show error message
+                    // loader.style.display = 'none';
+                    document.getElementById('loader-message').innerText = "";
+                    document.getElementById('loader-message2').innerText = "";
+                    responseMessage.style.color = "red"; // Error message color
+                    responseMessage.innerText = `Error: ${error.message || error}`; // Display error message
+                }, 5000); // 5000 ms = 5 seconds
+            });
+        });
+    });
+});
+
+
+
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     document.querySelectorAll(".subbuttons").forEach(button => {
+//         button.addEventListener("click", function () {
+//             const planName = this.dataset.plan;
+
+//             // Show loader and update message
+//             const loader = document.getElementById('s3loader');
+//             loader.style.display = 'block';  // Make the loader visible
+//             document.getElementById('loader-message').innerText = "Processing your subscription...";
+
+//             // Clear any previous messages
+//             const responseMessage = document.getElementById('response-message');
+//             responseMessage.innerText = '';
+
+//             fetch(`/subscribe_user/${planName}/`, {
+//                 method: "POST",
+//                 headers: {
+//                     "X-CSRFToken": getCSRFToken(),
+//                     "Content-Type": "application/json",
+//                     "Accept": "application/json"
+//                 },
+//                 body: JSON.stringify({})
+//             })
+//             .then(response => response.json())
+//             .then(data => {
+              
+//                 // Delay the loader hiding and redirecting by 5 seconds
+//                 setTimeout(() => {
+//                     // Hide loader after processing
+//                     // loader.style.display = 'none';
+
+//                     // Display success or error message
+//                     if (data.message) {
+//                         responseMessage.style.color = "green"; // Success message color
+//                         responseMessage.innerText = data.message; // Display success message
+//                     }
+
+//                     if (data.error) {
+//                         document.getElementById('loader-message').innerText = "";
+//                         document.getElementById('loader-message2').innerText = "";
+//                         responseMessage.style.color = "red"; // Error message color
+//                         responseMessage.innerText = data.error; // Display error message
+//                     }
+
+
+//                     // if (data.details) {
+//                     //     console.log(data);
+//                     // }
+
+//                     // Redirect after success (after delay)
+//                     if (data.message) {
+//                         window.location.href = "/"; // Redirect to home
+//                     }
+//                 }, 5000); // 5000 ms = 5 seconds
+//             })
+//             .catch(error => {
+//                 // Delay the loader hiding and error message display by 5 seconds
+//                 setTimeout(() => {
+//                     // Hide loader and show error message
+//                     // loader.style.display = 'none';
+//                     document.getElementById('loader-message').innerText = "";
+//                     document.getElementById('loader-message2').innerText = "";
+//                     responseMessage.style.color = "red"; // Error message color
+//                     responseMessage.innerText = "An error occurred. Please try again."; // Display error message
+//                 }, 5000); // 5000 ms = 5 seconds
+//             });
+//         });
+//     });
+// });
+
+</script>
+
+
+
+    <script>
+        const container = document.getElementById("categoryContainer");
+        const btnLeft = document.getElementById("scrollLeft");
+        const btnRight = document.getElementById("scrollRight");
+
+        function scrollCategory(direction) {
+            const scrollAmount = 220; // Adjust if needed
+            container.scrollBy({
+                left: direction === "left" ? -scrollAmount : scrollAmount,
+                behavior: "smooth"
+            });
+        }
+
+        function updateScrollButtons() {
+            const scrollLeft = container.scrollLeft;
+            const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+            // Hide left button if at start
+            btnLeft.style.display = scrollLeft <= 0 ? "none" : "inline-block";
+
+            // Hide right button if at end
+            btnRight.style.display = scrollLeft >= maxScrollLeft - 1 ? "none" : "inline-block";
+        }
+
+        // Initial state
+        window.addEventListener("load", updateScrollButtons);
+        container.addEventListener("scroll", updateScrollButtons);
+    </script>
+
+
+
+
+
+
+
+    <script>
+        const blogContainer = document.getElementById("blogContainer");
+        const scrollLeftBtn = document.getElementById("blogScrollLeft");
+        const scrollRightBtn = document.getElementById("blogScrollRight");
+
+        function scrollBlog(direction) {
+            const scrollAmount = 320;
+            blogContainer.scrollBy({
+                left: direction === "left" ? -scrollAmount : scrollAmount,
+                behavior: "smooth"
+            });
+        }
+
+        function updateBlogScrollButtons() {
+            const scrollLeft = blogContainer.scrollLeft;
+            const maxScrollLeft = blogContainer.scrollWidth - blogContainer.clientWidth;
+
+            scrollLeftBtn.style.display = scrollLeft <= 0 ? "none" : "inline-block";
+            scrollRightBtn.style.display = scrollLeft >= maxScrollLeft - 1 ? "none" : "inline-block";
+        }
+
+        window.addEventListener("load", updateBlogScrollButtons);
+        blogContainer.addEventListener("scroll", updateBlogScrollButtons);
+    </script>
+
+
+
+
+    <script>
+        function scroll_blog_category(direction) {
+            const container = document.getElementById('blog_category_container');
+            const scrollAmount = 300;
+
+            if (direction === 'left') {
+                container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }
+
+        function update_blog_scroll_buttons() {
+            const container = document.getElementById('blog_category_container');
+            const leftBtn = document.getElementById('blog_scroll_left');
+            const rightBtn = document.getElementById('blog_scroll_right');
+
+            leftBtn.disabled = container.scrollLeft <= 0;
+            rightBtn.disabled = container.scrollLeft + container.clientWidth >= container.scrollWidth;
+        }
+
+    </script>
+
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+    </script>
+
+
+
+
+</body>
+
+{% endblock %}
+
+</html>

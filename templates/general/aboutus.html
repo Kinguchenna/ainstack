@@ -1,0 +1,302 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} About Us - Free Text-To-Speech, Audio Tools & More | ainhub.com {% endblock %}
+{% block description %}Discover ainhub.com — your free AI-powered platform offering Text-to-Speech, Audio-to-Text, Video Downloaders, and more. Learn about our mission, values, and cutting-edge technology.{% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% block content %}
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+<link rel="stylesheet" href="style.css">
+<!-- <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@100..900&display=swap" rel="stylesheet"> -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:ital,wght@0,100..1000;1,100..1000&family=Poetsen+One&display=swap"
+    rel="stylesheet">
+
+
+<body>
+
+    {% include 'partials/header.html' %}
+
+    <main class="main_area">
+        <div class="main_content">
+
+            {% include 'partials/slider.html' %}
+            {% include 'partials/message.html' %}
+            {% include 'partials/top_left_btn.html' %}
+
+            <div class="page_content">
+                <h2>Pioneer the future of AI & Machine Learning</h2>
+                {% include 'partials/solutions.html' %}
+                <div class="search-container">
+                    <div class="search-bar">
+                        <!-- <input type="text" placeholder="Search millions of templates"> -->
+                        <textarea rows="3" name="" id="">At AI Tools Hub, we believe that powerful technology should be accessible to everyone — for free. Our platform offers a suite of AI-powered tools designed to make your digital life easier, faster, and more creative.
+</textarea>
+                        <button>&#10140;</button>
+                    </div> 
+                </div>
+
+
+                <div class="text_container">
+                    <h3>Who we are:</h3>
+
+                    <p>At <strong>AI Tools Hub</strong>, we believe that powerful technology should be accessible to
+                        everyone — for free.</p>
+                    <p>Our platform offers a suite of AI-powered tools designed to make your digital life easier,
+                        faster, and more creative.</p>
+                    <p>Whether you're turning text into lifelike speech, transcribing audio with precision, downloading
+                        your favorite content, removing background noise, extracting text from images, or even
+                        generating songs from words — we’ve got you covered.</p>
+                    <p>Our tools are powered by advanced AI and machine learning to deliver fast, reliable, and
+                        user-friendly results across all devices.</p>
+                    <p>No sign-up. No hidden fees. Just simple, smart solutions.</p>
+                    <p>Start exploring today — clone a voice, clean up your audio, create music, and unlock the full
+                        potential of AI.</p>
+                </div>
+
+                <div class="text_container">
+
+                    <h3>Our Principles</h3>
+                    <p><strong>Accessibility First:</strong> We offer free tools so everyone can harness the power of
+                        AI, regardless of technical skill or budget.</p>
+                    <p><strong>Privacy Matters:</strong> We do not store or share your data. Your input and results are
+                        yours alone.</p>
+                    <p><strong>No Sign-Up Needed:</strong> Use all tools instantly without creating an account.</p>
+                    <p><strong>Cross-Platform Compatibility:</strong> Our tools work seamlessly on mobile, tablet, and
+                        desktop devices.</p>
+                    <p><strong>Transparency:</strong> We are clear about limitations and capabilities. What you see is
+                        what you get.</p>
+                    <p><strong>Innovation Through AI:</strong> We leverage machine learning to deliver accurate,
+                        creative, and smart features.</p>
+                    <p><strong>User Experience:</strong> Our interface is clean, fast, and distraction-free—no ads, no
+                        pop-ups.</p>
+                    <p><strong>Community-Driven:</strong> We improve continuously based on real user feedback and needs.
+                    </p>
+                </div>
+
+
+                <div class="text_container">
+                    <h3>What Sets Us Apart</h3>
+                    <p><strong>Truly Free Tools:</strong> We provide powerful AI-driven features at no cost, with no
+                        hidden fees or subscriptions.</p>
+                    <p><strong>Instant Access:</strong> No sign-up required — start using our tools immediately.</p>
+                    <p><strong>Wide Range of Services:</strong> From text-to-speech and audio-to-text to video
+                        downloading and noise removal, all in one place.</p>
+                    <p><strong>High-Quality AI:</strong> We use advanced machine learning to deliver accurate,
+                        natural-sounding audio and precise transcriptions.</p>
+                    <p><strong>Privacy and Security:</strong> We never store or share your data, ensuring your content
+                        stays private.</p>
+                    <p><strong>Cross-Device Compatibility:</strong> Our tools work flawlessly on desktops, tablets, and
+                        smartphones.</p>
+                    <p><strong>Clean, Ad-Free Experience:</strong> Enjoy a smooth and distraction-free interface with no
+                        annoying ads or popups.</p>
+                    <p><strong>Continuous Improvement:</strong> We listen to user feedback and update our services to
+                        meet evolving needs.</p>
+                </div>
+
+
+
+                <div class="text_container">
+                    <h3>What We Offer</h3>
+                    <p><strong>Free Text to Speech:</strong> Convert any written text into natural, high-quality
+                        AI-generated audio.</p>
+                    <p><strong>Free Audio to Text:</strong> Quickly transcribe your voice recordings, interviews, and
+                        podcasts with accuracy.</p>
+                    <p><strong>Free YouTube Downloader:</strong> Download videos and extract audio from YouTube in
+                        multiple formats and resolutions.</p>
+                    <p><strong>Free Twitter Downloader:</strong> Save videos and audio clips from Twitter effortlessly.
+                    </p>
+                    <p><strong>Free Text Extractor:</strong> Extract text easily from images, PDFs, and other documents
+                        using AI-powered OCR technology.</p>
+                    <p><strong>Free Noise Removal:</strong> Enhance your audio by removing background noise and
+                        improving sound clarity.</p>
+                    <p><strong>Free Text to Song:</strong> Transform your words into catchy melodies and songs instantly
+                        with AI music generation.</p>
+                    <p><strong>Voice Cloning:</strong> Clone a voice today using advanced AI to create personalized and
+                        realistic audio content.</p>
+                </div>
+
+
+                <div class="text_container">
+                    <h3>Join Our Mission</h3>
+                    <p>We believe in making cutting-edge AI tools accessible to everyone.</p>
+                    <p>Our mission is to empower creators, professionals, and learners worldwide with free, easy-to-use,
+                        and high-quality AI services.</p>
+                    <p>Together, we can unlock the full potential of voice, text, and multimedia technology to inspire
+                        creativity and productivity.</p>
+                    <p>Join us on this exciting journey to shape the future of AI-powered content creation.</p>
+                </div>
+
+
+                <div class="text_container">
+                    <h3>Careers</h3>
+                    <p>We’re always looking for passionate and talented individuals to join our growing team.</p>
+                    <p>If you’re excited about AI, machine learning, and building innovative tools that make a
+                        difference, we want to hear from you.</p>
+                    <p>Explore opportunities to work with cutting-edge technology in a collaborative and dynamic
+                        environment.</p>
+                    <p>Help us shape the future of AI-powered content creation and deliver exceptional experiences to
+                        users worldwide.</p>
+                    <p>Check our current openings or send us your resume to join our mission.</p>
+                </div>
+
+
+
+ 
+
+                {% include 'partials/blogs.html' %}
+
+
+
+
+
+            </div>
+
+
+
+        </div>
+
+        <div class="ads_slider">
+            <div class="ads_content">
+                <h2>ads content 20%</h2>
+                <p> add description comes here </p>
+                <div class="ads_image">
+                    <img src="{% static 'modern/images/adsone.webp' %}" alt="Ad Image">
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </main>
+
+
+
+
+
+
+
+    <!-- <script>
+  function scrollCategory(direction) {
+    const container = document.getElementById("categoryContainer");
+    const scrollAmount = 220; // match your card width + gap
+    container.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth"
+    });
+  }
+</script> -->
+
+
+
+    <script>
+        const container = document.getElementById("categoryContainer");
+        const btnLeft = document.getElementById("scrollLeft");
+        const btnRight = document.getElementById("scrollRight");
+
+        function scrollCategory(direction) {
+            const scrollAmount = 220; // Adjust if needed
+            container.scrollBy({
+                left: direction === "left" ? -scrollAmount : scrollAmount,
+                behavior: "smooth"
+            });
+        }
+
+        function updateScrollButtons() {
+            const scrollLeft = container.scrollLeft;
+            const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+            // Hide left button if at start
+            btnLeft.style.display = scrollLeft <= 0 ? "none" : "inline-block";
+
+            // Hide right button if at end
+            btnRight.style.display = scrollLeft >= maxScrollLeft - 1 ? "none" : "inline-block";
+        }
+
+        // Initial state
+        window.addEventListener("load", updateScrollButtons);
+        container.addEventListener("scroll", updateScrollButtons);
+    </script>
+
+
+
+
+
+
+
+    <script>
+        const blogContainer = document.getElementById("blogContainer");
+        const scrollLeftBtn = document.getElementById("blogScrollLeft");
+        const scrollRightBtn = document.getElementById("blogScrollRight");
+
+        function scrollBlog(direction) {
+            const scrollAmount = 320;
+            blogContainer.scrollBy({
+                left: direction === "left" ? -scrollAmount : scrollAmount,
+                behavior: "smooth"
+            });
+        }
+
+        function updateBlogScrollButtons() {
+            const scrollLeft = blogContainer.scrollLeft;
+            const maxScrollLeft = blogContainer.scrollWidth - blogContainer.clientWidth;
+
+            scrollLeftBtn.style.display = scrollLeft <= 0 ? "none" : "inline-block";
+            scrollRightBtn.style.display = scrollLeft >= maxScrollLeft - 1 ? "none" : "inline-block";
+        }
+
+        window.addEventListener("load", updateBlogScrollButtons);
+        blogContainer.addEventListener("scroll", updateBlogScrollButtons);
+    </script>
+
+
+
+
+    <script>
+        function scroll_blog_category(direction) {
+            const container = document.getElementById('blog_category_container');
+            const scrollAmount = 300;
+
+            if (direction === 'left') {
+                container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }
+
+        function update_blog_scroll_buttons() {
+            const container = document.getElementById('blog_category_container');
+            const leftBtn = document.getElementById('blog_scroll_left');
+            const rightBtn = document.getElementById('blog_scroll_right');
+
+            leftBtn.disabled = container.scrollLeft <= 0;
+            rightBtn.disabled = container.scrollLeft + container.clientWidth >= container.scrollWidth;
+        }
+
+    </script>
+
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+    </script>
+
+
+
+
+</body>
+
+{% endblock %}
+
+</html>

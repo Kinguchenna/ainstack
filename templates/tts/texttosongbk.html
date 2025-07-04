@@ -1,0 +1,365 @@
+
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %}Free Text-To-Song for all languages & MP3 Download | ainhub.com/txt2mp4{% endblock %}
+{% block description %}Easily convert text to natural US English voice and 150+ languages/accents into a song for free. Listen online or download as MP3.{% endblock %}
+
+
+{% block content %}
+
+<style>
+    
+    .error-box {
+    background-color: #ffe0e0;
+    color: #b30000;
+    border: 1px solid #b30000;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-weight: bold;
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+  .voice-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+        
+            .langbox {
+                background: #ffffff;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 12px 16px;
+                font-size: 1rem;
+                color: #333;
+                text-align: center;
+                min-width: 180px;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            }
+        
+            .langbox:hover {
+                background-color: #f0f8ff;
+                border-color: #4a90e2;
+                cursor: pointer;
+                transform: translateY(-2px);
+            }
+        
+            @media (max-width: 600px) {
+                .langbox {
+                    min-width: 94%;
+                }
+            }
+</style>
+
+
+<body>
+
+
+    {% include 'partials/logo.html' %}
+    <div id="body">
+        <h1>🎤  Text-to-Song  Converter</h1>
+
+        {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+<div id="introtext">
+    <p style="text-align:left;">
+        Instantly turn your <strong>text into song lyrics</strong> — quickly and for free. 
+        Perfect for <em>songwriting</em>, <em>poetry</em>, <em>creative content</em>, and more.
+
+        Choose from multiple styles including <code>pop</code>, <code>rock</code>, and <code>jazz</code>, and generate songs in various tempos and moods.
+
+        Our song creator is fast, secure, and transforms your text into melodies effortlessly. No software installation required. <a id="subbtn" href="{% url 'subscribe' %}" style="text-decoration: none;">Choose Subscription</a> for access to premium features, more styles, and an ad-free experience.
+        Explore our <a   id="subbtn"  href="{% url 'process_youdownload' %}" style="text-decoration: none;" > Free YouTube Downloader </a> 
+    </p> 
+</div>
+
+
+   
+
+ 
+
+        
+        <div id="featured">
+
+            <form >
+                <div id="error-message" class="error-box" style="display: none;"></div>
+             
+                <!-- <div class="tabs">
+                    <button class="tab tabfocus">Regular Voices</button>
+                    <button class="tab" onclick="window.location.href='https://ttsmp3.com/ai';">AI Voices</button>
+                </div> -->
+
+                <textarea maxlength="3000" id="voicetext" placeholder="your text here" tabindex="1"></textarea>
+      
+                    <label for="ShortName" style="display: block; font-weight: bold; margin-bottom: 5px;">Choose Voice:</label>
+                    <select id="ShortName" class="ShortName" style="width: 97%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+                        {% if voices %}
+                            {% for voice in voices %}
+                                <option value="{{ voice.ShortName }}">
+                                    {{ voice.FriendlyName }} - {{ voice.Gender }} 
+                                </option>
+                            {% endfor %}
+                        {% else %}
+                            <option disabled>No voices available</option>
+                        {% endif %}
+                    </select>
+
+
+                    <!-- <label for="pitch">Pitch:</label>
+                    <select id="pitch" name="pitch">
+                      <option value="default">Default</option>
+                      <option value="+20%">+20%</option>
+                      <option value="+10%">+10%</option>
+                      <option value="0%">0%</option>
+                      <option value="-10%">-10%</option>
+                      <option value="-20%">-20%</option>
+                    </select><br><br>
+                  
+                    <label for="speed">Speed:</label>
+                    <select id="speed" name="speed">
+                      <option value="default">Default</option>
+                      <option value="+20%">+20%</option>
+                      <option value="+10%">+10%</option>
+                      <option value="0%">0%</option>
+                      <option value="-10%">-10%</option>
+                      <option value="-20%">-20%</option>
+                    </select><br><br> -->
+               
+    
+                    <button  id="texttosong" class="subbuttons"  tabindex="3" style="margin-top: 8px;" >Convert</button> 
+                    <button  id="member" class="subbuttons"   style="margin-top: 8px;" > <a href="{% url 'subscribe' %}">Become a Member</a> </button> 
+                    <button  id="downloadLink" class="subbuttons"   style="margin-top: 8px;display: none;" > <a href="{% url 'subscribe' %}" download="output1.mp3" href="#" > Download </a> </button> 
+ 
+ 
+             
+
+
+
+                <!-- <input id="downloadenbutton" class="subbuttons" type="submit" tabindex="2" value="Download as MP3" /> -->
+                <div style="clear:both;"></div>
+                <p id="limitannounce">
+                    <!--<a target="_blank" href="https://ttsmp3.com/register?click=banner"><img style='width: 100% !important;' src='{% static '/images/BannerAdNew.jpg' %}'/></a>--></p>
+                    <audio id="audioPlayer" controls style="display:none;width: 97%; padding: 8px;"></audio>
+                    <br>
+               
+                
+
+                </form>
+
+                
+
+
+        </div>
+
+        <div style='border: 2px solid #ccc; width: 350px; padding: 10px; display: none;' id='s3loader'>
+           
+            <p style='font-weight: bold;'>Woah, that is quite some text... </p>
+            <p>Please give us a moment to process your request...</p><img style='border: none;' width='200' data-src='{% static 'images/loader.gif' %}' />
+        </div>
+        <p>Input limit: 3,500 characters / Don't forget to turn on your speakers :-)</p>
+        <p><strong>Tip:</strong> For clearer pronunciation, always add a space after a period before starting the next sentence.</p>
+
+        <br/>
+        <div style="text-align: justify; width: 70%; padding: 30px; border: 2px solid #cecece; padding-top: 10px; margin-top: 5px;">
+            <h3>Enhance your song output using SSML (Speech Synthesis Markup Language):</h3>
+
+            <h4>Insert a pause</h4>
+            Mary had a little lamb &lt;break time="1s"/&gt; whose fleece was white as snow.
+
+            <h4>Emphasize lyrics</h4>
+            I told you I &lt;emphasis level="strong"&gt;really like&lt;/emphasis&gt; that place.
+
+            <h4>Adjust song tempo</h4>
+            Slow down for a mellow vibe: &lt;prosody rate="slow"&gt;This is sung slowly.&lt;/prosody&gt;<br/>
+            Or speed up for energy: &lt;prosody rate="fast"&gt;Now we sing faster.&lt;/prosody&gt;
+
+            <h4>Change pitch for musical effect</h4>
+            High pitch for a catchy tune: &lt;prosody pitch="+20%"&gt;This sounds higher.&lt;/prosody&gt;<br/>
+            Low pitch for a deeper tone: &lt;prosody pitch="-20%"&gt;This sounds lower.&lt;/prosody&gt;
+
+            <h4>Adjust volume for dynamics</h4>
+            &lt;prosody volume="x-soft"&gt;This is very soft.&lt;/prosody&gt;<br/>
+            &lt;prosody volume="loud"&gt;This is louder than normal.&lt;/prosody&gt;
+
+            <h4>Voice styles (if supported)</h4>
+            &lt;mstts:express-as style="cheerful"&gt;I'm feeling great today!&lt;/mstts:express-as&gt;
+
+            <h4>Role-play multiple singers</h4>
+            [singer:John] How are you doing?<br/>
+            [singer:Emily] I'm fine. Thank you!<br/>
+            Note: Replace names with your actual lyrics. Use SSML per singer if needed.
+
+            <h4>Need more customization?</h4>
+            <p>Explore full SSML support for Microsoft TTS at <a rel="nofollow" target="_blank" href="https://learn.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-synthesis-markup">Microsoft SSML Documentation</a>.</p>
+        
+        
+        </div>
+
+        
+        <br/>
+        <div style="text-align: justify; width: 70%; padding: 30px; border: 2px solid #cecece; padding-top: 10px; margin-top: 5px;">
+            <h3>Our Solutions :</h3> 
+            <p>Explore full SSML support for Microsoft TTS at <a rel="nofollow" target="_blank" href="https://learn.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-synthesis-markup">Microsoft SSML Documentation</a>.</p>
+        
+        </div>
+
+        
+            <br/>
+            {% include 'partials/navigator.html' %}        
+        <br/>
+
+<div style="text-align: justify; width: 70%; padding: 30px; border: 2px solid #cecece; padding-top: 10px; margin-top: 5px;">
+    <h3>Facts about the US English Language:</h3>
+
+    <p>
+        English was brought to Britain in the mid 5th to 7th centuries. If you were to ask those who don't speak English whether or not it's a hard language to learn, you'd likely get more than a few who insist that it is among the hardest.
+    </p>
+
+    <p>
+        Though, it can be argued that English is easy since it has no gender, no word agreement, and no cases. Yet, it does have words such as through, threw, and thru, all sound the same, but are spelled differently, and can't be used interchangeably.
+    </p>
+
+    <p>
+        English also has words like "polish" and "Polish." One refers to making furniture shine, while the other refers to a language. Or take "resume" and "resume," one is used when you're filling out job applications, and the other means to continue doing something.
+    </p>
+
+    <p>
+        As you can see above, the English language can be challenging, however, it's far from the most difficult language to learn. With a bit of study, and some practice, almost anyone can learn English. One of the best ways to learn the language is to find a friend who speaks English and is willing to have conversations with you. This will help you immerse yourself in the language, picking up on the nuances and speech patterns of English. With a bit of practice, you'll soon be speaking English as if it were your native language.
+    </p>
+
+    <hr>
+
+    <h4>Enhance Speech Generation with SSML (for Song Creation):</h4>
+    <p>
+        Customize how your text is sung using SSML. Here are a few examples of how you can modify your speech synthesis for song output:
+    </p>
+
+    <h5>1. Add Pauses for Musical Breaks</h5>
+    <p>
+        Insert a pause using <code>&lt;break time="1s"&gt;</code>.<br>
+        Example: <br>
+        <code>Mary had a little lamb &lt;break time="1s"&gt; whose fleece was white as snow.</code>
+    </p>
+
+    <h5>2. Emphasize Lyrics</h5>
+    <p>
+        Use <code>&lt;emphasis&gt;</code> to stress important words.<br>
+        Example: <br>
+        <code>I &lt;emphasis level="strong"&gt;really like&lt;/emphasis&gt; that tune.</code>
+    </p>
+
+    <h5>3. Adjust Song Tempo</h5>
+    <p>
+        Change the speed with <code>&lt;prosody rate="slow"&gt;</code> or <code>&lt;prosody rate="fast"&gt;</code>.<br>
+        Example: <br>
+        <code>&lt;prosody rate="fast"&gt;We’re singing faster now!&lt;/prosody&gt;</code>
+    </p>
+
+    <h5>4. Change Pitch for Musical Effect</h5>
+    <p>
+        Modify pitch with <code>&lt;prosody pitch="high"&gt;</code> or <code>&lt;prosody pitch="-20%"&gt;</code>.<br>
+        Example: <br>
+        <code>&lt;prosody pitch="high"&gt;Let’s hit the high notes!&lt;/prosody&gt;</code>
+    </p>
+
+    <h5>5. Add a Whispering Effect for Drama</h5>
+    <p>
+        Use whispering effects for dramatic impact with:<br>
+        <code>&lt;amazon:effect name="whispered"&gt;They’ll hear us.&lt;/amazon:effect&gt;</code>
+    </p>
+
+    <h5>6. Simulate Conversations Between Singers</h5>
+    <p>
+        Switch between singers with <code>[singer:Name]</code>.<br>
+        Example: <br>
+        <code>[singer:John] How are you doing?<br>[singer:Emily] I'm fine. Thank you!&lt;/code&gt;</p>
+
+    <p><strong>Note:</strong> Remove accents from singer names (e.g., Léa → Lea).</p>
+
+    <p>For more customization, visit the <a rel="nofollow" target="_blank" href="https://learn.microsoft.com/en-us/azure/ai-services/speech-service/speech-synthesis-markup">SSML documentation</a>.</p>
+</div>
+
+        
+
+       
+         
+
+
+
+    
+        
+
+        <br/>
+        <p>Current Limit: ~415 words or 3,500 characters / day | Powered by MS</p>
+        <p>Get in touch? Mail us: <br/>    <strong style="font-size: 16px;">info@ainhub.com</strong>  </p>
+        <p>Need to convert more text to speech? <a href="subscribe/">Become a Member here</a> for  premium access.</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+          $("#texttosong").on("click", function(e){
+        e.preventDefault();
+    
+        const voicetext = $("#voicetext").val();
+        const ShortName = $("#ShortName").val();
+        const pitch = $("#pitch").val() || "default";  // Optional input for musical pitch
+        const speed = $("#speed").val() || "default";  // Optional input for tempo/speed
+    
+        const button = $(this);
+        button.text("Processing...");
+        button.prop("disabled", true); 
+    
+        $.ajax({
+            url: 'http://127.0.0.1:8000/texttosong/',
+            type: 'GET',
+            dataType: 'json',
+            data: { 
+                text: voicetext, 
+                ShortName: ShortName, 
+                pitch: "+20%",
+                speed: "slow"
+            },
+            success: function(response) {
+                if (!response || response.voicetext.trim() === "") {
+                    const errorMessage = "Text and voice selection cannot be empty.";
+                    displayError(errorMessage);
+                    button.prop("disabled", false).text("Convert to Song");
+                } else {
+                    button.prop("disabled", false).text("Convert to Song");
+                    $("#audioPlayer").attr("src", response.file_url).show();    
+                    $("#downloadLink").attr("href", response.file_url).show();
+                }
+            },
+            error: function(xhr, status, error) {
+                const errorMessage = xhr.responseJSON?.message || "An unexpected error occurred. Please try again.";
+                console.error("Error:", errorMessage);
+    
+                button.prop("disabled", false).text("Convert to Song");
+                displayError(errorMessage);
+            }
+        });
+    });
+    </script>
+    
+
+</body>
+{% endblock %}
+
+
+</html>

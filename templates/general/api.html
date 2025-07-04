@@ -1,0 +1,377 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} API Documentation | ainhub.com {% endblock %}
+{% block description %}Discover ainhub.com —   API Documentation.{% endblock %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css">
+<!-- <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@100..900&display=swap" rel="stylesheet"> -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Ancizar+Sans:ital,wght@0,100..1000;1,100..1000&family=Poetsen+One&display=swap"
+    rel="stylesheet">
+{% block content %}
+
+ 
+<style>
+ 
+
+  
+
+    .container {
+          margin-top: 20px;
+        width: 100%;
+        /* margin: auto; */
+        text-align: left;
+    }
+
+    h2 {
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 5px;
+    }
+
+    .endpoint {
+        background: #fff;
+        border-left: 6px solid #4CAF50;
+        margin-bottom: 20px;
+        padding: 15px 20px;
+        border-radius: 6px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .method {
+        font-weight: bold;
+        color: #4CAF50;
+    }
+
+    code {
+        background: #eee;
+        padding: 2px 6px;
+        border-radius: 4px;
+    }
+
+    pre {
+        background: #272822;
+        color: #f8f8f2;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+    }
+
+    .param-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    .param-table th,
+    .param-table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .param-table th {
+        background-color: #f0f0f0;
+    }
+
+    footer {
+        margin-top: 40px;
+        text-align: center;
+        color: #aaa;
+    }
+</style>
+
+
+<body>
+
+    {% include 'partials/header.html' %}
+
+    <main class="main_area">
+        <div class="main_content">
+
+            {% include 'partials/slider.html' %}
+            {% include 'partials/message.html' %}
+            {% include 'partials/top_left_btn.html' %}
+
+            <div class="page_content">
+                <h2>API Documentation</h2>
+                {% include 'partials/solutions.html' %}
+                <div class="search-container">
+                    <div class="search-bar">
+                        <!-- <input type="text" placeholder="Search millions of templates"> -->
+                        <textarea rows="3" name="" id="">At AI Tools Hub, we believe that powerful technology should be accessible to everyone — for free. Our platform offers a suite of AI-powered tools designed to make your digital life easier, faster, and more creative.
+</textarea>
+                        <button>&#10140;</button>
+                    </div>
+                </div>
+
+
+ 
+                <div class="container">
+
+                    <section class="endpoint">
+                        <h2>1. Generate Audio from Text</h2>
+                        <p><span class="method">POST</span> <code>/api/v1/text-to-audio</code></p>
+
+                        <h4>Request Body</h4>
+                        <table class="param-table">
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>text</td>
+                                <td>string</td>
+                                <td>The text to convert into speech</td>
+                            </tr>
+                            <tr>
+                                <td>voice</td>
+                                <td>string</td>
+                                <td>Voice style (e.g., 'male', 'female', 'narrator')</td>
+                            </tr>
+                            <tr>
+                                <td>language</td>
+                                <td>string</td>
+                                <td>Language code (e.g., 'en-US')</td>
+                            </tr>
+                        </table>
+
+                        <h4>Sample Request</h4>
+                        <pre>{
+  "text": "Welcome to Eldoria, land of dragons.",
+  "voice": "narrator",
+  "language": "en-US"
+}</pre>
+
+                        <h4>Sample Response</h4>
+                        <pre>{
+  "audio_url": "https://yourdomain.com/audio/eldoria.mp3",
+  "status": "success"
+}</pre>
+                    </section>
+
+                    <section class="endpoint">
+                        <h2>2. Transcribe Audio to Text</h2>
+                        <p><span class="method">POST</span> <code>/api/v1/audio-to-text</code></p>
+
+                        <h4>Request Body</h4>
+                        <table class="param-table">
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>file</td>
+                                <td>file (audio)</td>
+                                <td>Upload MP3 or WAV audio file</td>
+                            </tr>
+                            <tr>
+                                <td>language</td>
+                                <td>string</td>
+                                <td>Language of the spoken content (e.g., 'en-US')</td>
+                            </tr>
+                        </table>
+
+                        <h4>Sample Response</h4>
+                        <pre>{
+  "transcript": "Welcome to Eldoria, land of dragons.",
+  "confidence": 0.98,
+  "status": "success"
+}</pre>
+                    </section>
+
+                    <section class="endpoint">
+                        <h2>3. Convert Text to Song</h2>
+                        <p><span class="method">POST</span> <code>/api/v1/text-to-song</code></p>
+
+                        <h4>Request Body</h4>
+                        <table class="param-table">
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                            <tr>
+                                <td>lyrics</td>
+                                <td>string</td>
+                                <td>Text or lyrics to convert into a song</td>
+                            </tr>
+                            <tr>
+                                <td>genre</td>
+                                <td>string</td>
+                                <td>Style or genre (e.g., 'pop', 'rock', 'lofi')</td>
+                            </tr>
+                        </table>
+
+                        <h4>Sample Response</h4>
+                        <pre>{
+  "song_url": "https://yourdomain.com/songs/my_song.mp3",
+  "status": "success"
+}</pre>
+                    </section>
+
+                    
+                </div>
+
+
+
+
+
+                {% include 'partials/blogs.html' %}
+
+
+
+
+
+            </div>
+
+
+
+        </div>
+
+        <div class="ads_slider">
+            <div class="ads_content">
+                <h2>ads content 20%</h2>
+                <p> add description comes here </p>
+                <div class="ads_image">
+                    <img src="{% static 'modern/images/adsone.webp' %}" alt="Ad Image">
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </main>
+
+
+
+
+
+
+
+    <!-- <script>
+  function scrollCategory(direction) {
+    const container = document.getElementById("categoryContainer");
+    const scrollAmount = 220; // match your card width + gap
+    container.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth"
+    });
+  }
+</script> -->
+
+
+
+    <script>
+        const container = document.getElementById("categoryContainer");
+        const btnLeft = document.getElementById("scrollLeft");
+        const btnRight = document.getElementById("scrollRight");
+
+        function scrollCategory(direction) {
+            const scrollAmount = 220; // Adjust if needed
+            container.scrollBy({
+                left: direction === "left" ? -scrollAmount : scrollAmount,
+                behavior: "smooth"
+            });
+        }
+
+        function updateScrollButtons() {
+            const scrollLeft = container.scrollLeft;
+            const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+            // Hide left button if at start
+            btnLeft.style.display = scrollLeft <= 0 ? "none" : "inline-block";
+
+            // Hide right button if at end
+            btnRight.style.display = scrollLeft >= maxScrollLeft - 1 ? "none" : "inline-block";
+        }
+
+        // Initial state
+        window.addEventListener("load", updateScrollButtons);
+        container.addEventListener("scroll", updateScrollButtons);
+    </script>
+
+
+
+
+
+
+
+    <script>
+        const blogContainer = document.getElementById("blogContainer");
+        const scrollLeftBtn = document.getElementById("blogScrollLeft");
+        const scrollRightBtn = document.getElementById("blogScrollRight");
+
+        function scrollBlog(direction) {
+            const scrollAmount = 320;
+            blogContainer.scrollBy({
+                left: direction === "left" ? -scrollAmount : scrollAmount,
+                behavior: "smooth"
+            });
+        }
+
+        function updateBlogScrollButtons() {
+            const scrollLeft = blogContainer.scrollLeft;
+            const maxScrollLeft = blogContainer.scrollWidth - blogContainer.clientWidth;
+
+            scrollLeftBtn.style.display = scrollLeft <= 0 ? "none" : "inline-block";
+            scrollRightBtn.style.display = scrollLeft >= maxScrollLeft - 1 ? "none" : "inline-block";
+        }
+
+        window.addEventListener("load", updateBlogScrollButtons);
+        blogContainer.addEventListener("scroll", updateBlogScrollButtons);
+    </script>
+
+
+
+
+    <script>
+        function scroll_blog_category(direction) {
+            const container = document.getElementById('blog_category_container');
+            const scrollAmount = 300;
+
+            if (direction === 'left') {
+                container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }
+
+        function update_blog_scroll_buttons() {
+            const container = document.getElementById('blog_category_container');
+            const leftBtn = document.getElementById('blog_scroll_left');
+            const rightBtn = document.getElementById('blog_scroll_right');
+
+            leftBtn.disabled = container.scrollLeft <= 0;
+            rightBtn.disabled = container.scrollLeft + container.clientWidth >= container.scrollWidth;
+        }
+
+    </script>
+
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+    </script>
+
+
+
+
+</body>
+
+{% endblock %}
+
+</html>

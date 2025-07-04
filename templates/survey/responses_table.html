@@ -1,0 +1,85 @@
+{% load static %}
+{% load custom_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Survey Responses - {{ survey.title }}</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css" />
+    <style>
+        .btn-download {
+            background-color: #0E8AB3;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .btn-download:hover {
+            background-color: #0b6e8a;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Survey Responses - {{ survey.title }}</h1>
+
+        <a href="{% url 'survey:export_csv' survey.id %}" class="btn-download">Download CSV</a>
+
+        <table id="responsesTable" class="display stripe" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Email/User/IP</th>
+                    <th>IP Address</th>
+                    <th>Submitted At</th>
+                    {% for question in questions %}
+                        <th>{{ question.question_text }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in responses_data %}
+                    <tr>
+                        <td>
+                            {% if item.response.email %}
+                                {{ item.response.email }}
+                            {% elif item.response.user %}
+                                {{ item.response.user.email }}
+                            {% else %}
+                                {{ item.response.ip_address }}
+                            {% endif %}
+                        </td>
+                        <td>{{ item.response.ip_address }}</td>
+                        <td>{{ item.response.submitted_at|date:"Y-m-d H:i:s" }}</td>
+                        {% for question in questions %}
+                            <td>{{ item.answers_map|get_item:question.id|default_if_none:"" }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#responsesTable').DataTable({
+                paging: true,
+                searching: true,
+                ordering: true,
+                pageLength: 10,
+                lengthMenu: [5, 10, 25, 50, 100],
+                order: [[2, 'desc']], // order by Submitted At desc by default
+            });
+        });
+    </script>
+</body>
+</html>

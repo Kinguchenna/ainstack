@@ -1,0 +1,349 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %}Subscription Plans{% endblock %}
+<meta name="csrf-token" content="{{ csrf_token }}">
+
+{% block content %} 
+  <style>  
+
+    .plan-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .plan {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 25px;
+      width: 250px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .plan h3 {
+      margin-top: 0;
+    }
+
+    .price {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 10px 0 20px;
+    }
+
+    .subbuttons {
+      border: 2px solid #252525;
+      background-color: #fff;
+      color: #252525;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      height: 38px;
+      width: 180px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      line-height: 34px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .subbuttons:hover {
+      background-color: #252525;
+      color: #fff;
+    }
+  </style>
+ 
+<body>
+    {% include 'partials/logo.html' %}
+    <div id="body">
+  <h1>Choose Your Subscription Plan</h1>
+  <p>Select a plan that fits your needs.</p> 
+
+        <br/>
+
+        <div style="border: 2px solid #ccc; width: 350px; padding: 10px; display: none;" id="s3loader">
+          <p style="font-weight: bold;" id="loader-message">Processing your subscription...</p>
+          <p id="loader-message2" >Please give us a moment to process your request...</p>
+          <!-- <img style="border: none;" width="200" data-src="{% static 'images/loader.gif' %}" /> -->
+          <div id="response-message" style="margin-top: 10px;"></div> <!-- Success/Error message -->
+          <div id="invoice_id" style="margin-top: 10px;"></div> <!-- Success/Error message -->
+      </div>
+        <br/>
+
+<div class="plan-container">
+    {% if subs %}
+    {% for sub in subs %}
+    <div class="plan">
+        <h3>{{ sub.name }}</h3>
+        <p>Character Limit: {{ sub.character_limit }}</p>
+        <div class="price">${{ sub.price }}</div>
+        <!-- <button class="subbuttons" data-plan="{{ sub.name }}">Subscribe</button> -->
+        <a href="#" data-plan="{{sub.name}}" class="subbuttons">Pay with Crypto</a>
+        <br/> <p>or</p>
+        <a href="{% url 'banktransfer' sub.name %}"  class="subbuttons">Bank Transfer</a>
+
+    <!-- <a href="https://nowpayments.io/payment/?iid=6017190119&source=button" target="_blank" rel="noreferrer noopener">
+        <img src="https://nowpayments.io/images/embeds/payment-button-black.svg" alt="Crypto payment button by NOWPayments">
+    </a> -->
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+<!-- Display Name:  ainpay -->
+
+<!-- Client ID:  AWV0GiwYtETztpq7LN-J69hKHGCgpvQxrSmlL2_4k6B6JLe178Y34SZHPHVHtJ29JTUJMXULxg14TUnF -->
+
+<!-- Secreet Key:  EFmizKQ12lHvI_zQIku5LKzn8VC5AwaQtue0gEuKJ8PSGRoztFmkv3Ld-oJC09V_3ePeDEVj-UDl9syQ -->
+
+
+
+
+
+
+
+
+  <br/>
+<div style="text-align: justify; width: 70%; padding: 30px; border: 2px solid #cecece; padding-top: 10px; margin-top: 5px;">
+    <h2 style="text-align:center;">🔊 Welcome to <span style="color:#0E8AB3;">txt2MP3</span></h2>
+    
+    <p style="font-size: 16px;">
+        Instantly convert your US English text into high-quality speech using Microsoft Edge TTS voices — completely free.
+        Ideal for <strong>e-learning</strong>, <strong>YouTube narration</strong>, <strong>presentations</strong>, and more.
+        Choose from multiple neural voices, including male and female options.
+        Once processed, your audio is downloadable in <code>.mp3</code> format.
+    </p>
+    
+    <p style="font-size: 16px;">
+        These realistic voices are powered by Microsoft Edge TTS and support <strong>SSML enhancements</strong> like 
+        <span style="color:#0E8AB3;">pitch</span>, <span style="color:#0E8AB3;">speed</span>, <span style="color:#0E8AB3;">emphasis</span>, and 
+        <span style="color:#0E8AB3;">whisper effects</span>. Upgrade to a subscription for advanced features and higher usage limits.
+    </p>
+
+    <h3 style="margin-top: 30px;">💼 Choose Your Subscription Plan</h3>
+    
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-top: 20px;">
+        <div style="flex: 1; border: 1px solid #ccc; padding: 20px; border-radius: 10px;">
+            <h4>🎧 Free</h4>
+        </div>
+        
+        <div style="flex: 1; border: 1px solid #ccc; padding: 20px; border-radius: 10px;">
+            <h4>✨ Standard</h4>
+        </div>
+        
+        <div style="flex: 1; border: 1px solid #ccc; padding: 20px; border-radius: 10px;">
+            <h4>🚀 Premium</h4>
+        </div>
+    </div>
+
+    <h3 style="margin-top: 40px;">🎨 Advanced SSML Features You Can Use</h3>
+
+    <h4>⏸️ Insert a Pause</h4>
+    <code>Mary had a little lamb &lt;break time="1s"/&gt; whose fleece was white as snow.</code>
+
+    <h4>💬 Emphasize Words</h4>
+    <code>I told you I &lt;emphasis level="strong"&gt;really like&lt;/emphasis&gt; that place.</code>
+
+    <h4>⏩ Adjust Speaking Rate</h4>
+    <code>&lt;prosody rate="slow"&gt;This is spoken slowly.&lt;/prosody&gt;<br/>
+    &lt;prosody rate="fast"&gt;Now we talk faster.&lt;/prosody&gt;</code>
+
+    <h4>🎵 Change Pitch</h4>
+    <code>&lt;prosody pitch="+20%"&gt;This sounds higher.&lt;/prosody&gt;<br/>
+    &lt;prosody pitch="-20%"&gt;This sounds lower.&lt;/prosody&gt;</code>
+
+    <h4>🔊 Control Volume</h4>
+    <code>&lt;prosody volume="x-soft"&gt;This is very soft.&lt;/prosody&gt;<br/>
+    &lt;prosody volume="loud"&gt;This is louder than normal.&lt;/prosody&gt;</code>
+
+    <h4>🎭 Expressive Styles (If Supported)</h4>
+    <code>&lt;mstts:express-as style="cheerful"&gt;I'm feeling great today!&lt;/mstts:express-as&gt;</code>
+
+    <h4>🗣️ Role-Play Multiple Speakers</h4>
+    <code>[speaker:John] How are you doing?<br/>
+    [speaker:Emily] I'm fine. Thank you!</code>
+    <p>Use SSML per speaker for dynamic dialogues.</p>
+
+    <p style="margin-top: 20px;">📖 <strong>Want more?</strong> Read the full SSML guide from 
+    <a href="https://learn.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-synthesis-markup" target="_blank" rel="nofollow">Microsoft here</a>.</p>
+</div>
+      <br/>
+            {% include 'partials/navigator.html' %}        
+        <br/>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+function getCSRFToken() {
+    const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+    return tokenMeta ? tokenMeta.getAttribute('content') : '';
+}
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".subbuttons").forEach(button => {
+        button.addEventListener("click", function () {
+            const planName = this.dataset.plan;
+            this.textContent = "Processing...";
+            this.classList.add("disabled");
+            this.style.pointerEvents = "none";
+            this.style.opacity = "0.6"; 
+
+
+            // Show loader and update message
+            const loader = document.getElementById('s3loader');
+            loader.style.display = 'block';  // Make the loader visible
+            document.getElementById('loader-message').innerText = "Processing your subscription...";
+
+            // Clear any previous messages
+            const responseMessage = document.getElementById('response-message');
+            const invoice_id = document.getElementById('invoice_id');
+            responseMessage.innerText = '';
+
+            fetch(`/subscribe_user/${planName}/`, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": getCSRFToken(),
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+              
+                // Delay the loader hiding and redirecting by 5 seconds
+                setTimeout(() => {
+                    // Hide loader after processing
+                    // loader.style.display = 'none';
+
+                    // Display success or error message
+                    if (data.message) {
+                        responseMessage.style.color = "green"; // Success message color
+                        responseMessage.innerText = data.message; // Display success message
+                        invoice_id.innerText = 'save this ID for refrence: ' + data.invoice_id;
+                    }
+
+                    if (data.error) {
+                        document.getElementById('loader-message').innerText = "";
+                        document.getElementById('loader-message2').innerText = "";
+                        responseMessage.style.color = "red"; // Error message color
+                        responseMessage.innerText = data.error; // Display error message
+                    }
+
+
+                    // if (data.details) {
+                    //     console.log(data);
+                    // }
+
+                    // Redirect after success (after delay)
+                    if (data.invoice_url) {
+                         window.location.href = data.invoice_url;
+                    }
+                }, 5000); // 5000 ms = 5 seconds
+            })
+            .catch(error => {
+                // Delay the loader hiding and error message display by 5 seconds
+                setTimeout(() => {
+                    // Hide loader and show error message
+                    // loader.style.display = 'none';
+                    document.getElementById('loader-message').innerText = "";
+                    document.getElementById('loader-message2').innerText = "";
+                    responseMessage.style.color = "red"; // Error message color
+                    responseMessage.innerText = "An error occurred. Please try again."; // Display error message
+                }, 5000); // 5000 ms = 5 seconds
+            });
+        });
+    });
+});
+
+
+
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     document.querySelectorAll(".subbuttons").forEach(button => {
+//         button.addEventListener("click", function () {
+//             const planName = this.dataset.plan;
+
+//             // Show loader and update message
+//             const loader = document.getElementById('s3loader');
+//             loader.style.display = 'block';  // Make the loader visible
+//             document.getElementById('loader-message').innerText = "Processing your subscription...";
+
+//             // Clear any previous messages
+//             const responseMessage = document.getElementById('response-message');
+//             responseMessage.innerText = '';
+
+//             fetch(`/subscribe_user/${planName}/`, {
+//                 method: "POST",
+//                 headers: {
+//                     "X-CSRFToken": getCSRFToken(),
+//                     "Content-Type": "application/json",
+//                     "Accept": "application/json"
+//                 },
+//                 body: JSON.stringify({})
+//             })
+//             .then(response => response.json())
+//             .then(data => {
+              
+//                 // Delay the loader hiding and redirecting by 5 seconds
+//                 setTimeout(() => {
+//                     // Hide loader after processing
+//                     // loader.style.display = 'none';
+
+//                     // Display success or error message
+//                     if (data.message) {
+//                         responseMessage.style.color = "green"; // Success message color
+//                         responseMessage.innerText = data.message; // Display success message
+//                     }
+
+//                     if (data.error) {
+//                         document.getElementById('loader-message').innerText = "";
+//                         document.getElementById('loader-message2').innerText = "";
+//                         responseMessage.style.color = "red"; // Error message color
+//                         responseMessage.innerText = data.error; // Display error message
+//                     }
+
+
+//                     // if (data.details) {
+//                     //     console.log(data);
+//                     // }
+
+//                     // Redirect after success (after delay)
+//                     if (data.message) {
+//                         window.location.href = "/"; // Redirect to home
+//                     }
+//                 }, 5000); // 5000 ms = 5 seconds
+//             })
+//             .catch(error => {
+//                 // Delay the loader hiding and error message display by 5 seconds
+//                 setTimeout(() => {
+//                     // Hide loader and show error message
+//                     // loader.style.display = 'none';
+//                     document.getElementById('loader-message').innerText = "";
+//                     document.getElementById('loader-message2').innerText = "";
+//                     responseMessage.style.color = "red"; // Error message color
+//                     responseMessage.innerText = "An error occurred. Please try again."; // Display error message
+//                 }, 5000); // 5000 ms = 5 seconds
+//             });
+//         });
+//     });
+// });
+
+</script>
+
+
+
+</body>
+
+{% endblock %}
+
+</html>

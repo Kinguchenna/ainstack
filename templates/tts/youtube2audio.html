@@ -1,0 +1,376 @@
+
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %}Free YouTube Video to Audio Downloader | ainhub.com/yt-downloader{% endblock %}
+{% block description %}Download YouTube videos and audio (MP3/MP4) for free in high quality. No signup required. Fast, secure, and easy to use.{% endblock %}
+
+
+{% block content %}
+
+<style>
+    
+    .error-box {
+    background-color: #ffe0e0;
+    color: #b30000;
+    border: 1px solid #b30000;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 15px;
+    font-weight: bold;
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+.url{
+    font-family: 'Outfit' !important;
+    border: 2px solid #252525;
+    color: #252525;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+    margin: 0 0 9px;
+    padding: 10px;
+    text-align: left;
+    width: 94.5%;
+}
+
+
+  .voice-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+        
+            .langbox {
+                background: #ffffff;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 12px 16px;
+                font-size: 1rem;
+                color: #333;
+                text-align: center;
+                min-width: 180px;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            }
+        
+            .langbox:hover {
+                background-color: #f0f8ff;
+                border-color: #4a90e2;
+                cursor: pointer;
+                transform: translateY(-2px);
+            }
+        
+            @media (max-width: 600px) {
+                .langbox {
+                    min-width: 94%;
+                }
+            }
+</style>
+
+
+<body>
+
+
+    {% include 'partials/logo.html' %}
+    <div id="body">
+        <h1>YouTube video Downloader</h1>
+
+        {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+<div id="introtext">
+    <p style="text-align:left;">
+        Instantly download your favorite <strong>YouTube videos</strong> in high-quality format — quickly and for free. 
+        Perfect for <em>offline viewing</em>, <em>educational content</em>, <em>presentations</em>, and more.
+
+        Choose from multiple formats including <code>.mp4</code> and <code>.mp3</code>, and download videos in resolutions up to 1080p or higher depending on availability.
+
+        Our downloader is fast, secure, and supports videos from public YouTube links. No software installation required. <a id="subbtn" href="{% url 'subscribe' %}" style="text-decoration: none;">Choose Subscription</a> for higher resolution options, batch downloads, and ad-free experience.
+    </p> 
+</div>
+
+   
+
+ 
+
+        
+<div id="featured">
+    <form id="downloadForm" method="post">
+        {% csrf_token %}
+        <div id="error-message" class="error-box" style="display: none;"></div> 
+
+        <label for="url" style="display: block; font-weight: bold; margin-bottom: 5px;">YouTube URL:</label>
+        <input type="text" class="url" name="url" id="url" placeholder="Paste your YouTube URL here">
+
+        <label for="video-format" style="display: block; font-weight: bold; margin-top: 10px; margin-bottom: 5px;">Choose Format:</label>
+        <select id="video-format" name="video_format" style="width: 97%; padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+        
+            <option value="bestaudio" selected>Best Audio Only</option> 
+        </select>
+
+        <button id="download_button" class="subbuttons" style="margin-top: 8px;">Get MP3</button> 
+
+        <button  id="download-link" class="subbuttons"   style="margin-top: 8px;display: none;" > Download MP3  </button> 
+        <div style="clear:both;"></div>
+
+        <div id="progressBar" style="margin-top: 10px; display:none; height: 10px; background-color: #eee;">
+            <div id="progress" style="width:0%; height:100%; background-color:#28a745;"></div>
+        </div>
+
+        <!-- <div id="download-link" style="margin-top: 15px;"></div> -->
+    </form>
+</div>
+
+        <div style='border: 2px solid #ccc; width: 350px; padding: 10px; display: none;' id='s3loader'>
+           
+            <p style='font-weight: bold;'>Woah, that is quite some text... </p>
+            <p>Please give us a moment to process your request...</p><img style='border: none;' width='200' data-src='{% static 'images/loader.gif' %}' />
+        </div>
+        <p>Download limit: 1,000 characters / Downloads :-)</p> 
+
+        <br/>
+        <div style="text-align: justify; width: 70%; padding: 30px; border: 2px solid #cecece; padding-top: 10px; margin-top: 5px;">
+            <h3>Download YouTube Videos Easily with Our Tool:</h3>
+        
+            <h4>1. Copy the Video URL</h4>
+            Simply go to YouTube, right-click on the video you want to download, and select “Copy video URL”.
+        
+            <h4>2. Paste the URL</h4>
+            Paste the copied URL into the input field of our YouTube downloader.
+        
+            <h4>3. Choose the Format</h4>
+            Select the format you prefer: <strong>MP4 (video)</strong>, <strong>MP3 (audio)</strong>, or other available options.
+        
+            <h4>4. Select Quality</h4>
+            Choose from available quality levels: 1080p, 720p, 480p, or audio bitrate options.
+        
+            <h4>5. Start Download</h4>
+            Click the "Download" button and your file will be processed and saved to your device.
+        
+            <h4>Important Tips</h4>
+            - Ensure the video is public and not age-restricted.<br/>
+            - For playlists, download one video at a time unless batch mode is supported.<br/>
+            - Some browsers may block pop-ups—allow them if prompted.
+        
+            <h4>Note on Usage</h4>
+            This tool is intended for personal use only. Downloading copyrighted content without permission may violate YouTube’s Terms of Service.
+        
+            <h4>Need Help?</h4>
+            <p>Read the full usage guide and FAQ at <a rel="nofollow" target="_blank" href="https://yourwebsite.com/youtube-downloader-guide">YouTube Downloader Help Center</a>.</p>
+        </div>
+        
+        
+      <br/>
+            {% include 'partials/navigator.html' %}        
+        <br/>
+
+        <div style="text-align: justify; width: 70%; padding: 30px; border: 2px solid #cecece; padding-top: 10px; margin-top: 5px;">
+            <h3>Facts About Downloading YouTube Videos:</h3>
+        
+            <p>
+                YouTube, launched in 2005, is one of the most popular video platforms globally. Millions of users watch and upload videos daily, but sometimes streaming isn't ideal—especially when you're offline or saving data.
+            </p>
+        
+            <p>
+                A YouTube downloader allows you to save videos locally in various formats, such as MP4 or MP3. This means you can enjoy your favorite content—tutorials, music, lectures—without needing an internet connection.
+            </p>
+        
+            <p>
+                However, it's important to download content ethically. While downloading public domain or royalty-free videos is fine, downloading copyrighted content without permission may violate YouTube’s Terms of Service.
+            </p>
+        
+            <p>
+                That said, YouTube downloaders are fantastic for personal use, archiving, or content analysis. Many tools also support playlist downloads, audio extraction, and quality customization—giving you full control over your media experience.
+            </p>
+        
+            <hr>
+        
+            <h4>How to Use Our YouTube Downloader:</h4>
+            <p>
+                Follow these simple steps to get started:
+            </p>
+        
+            <h5>1. Copy the Video URL</h5>
+            <p>
+                Navigate to the video on YouTube, right-click, and select “Copy video URL”.
+            </p>
+        
+            <h5>2. Paste the URL into the Downloader</h5>
+            <p>
+                Go to our downloader tool and paste the link into the input box.
+            </p>
+        
+            <h5>3. Choose Output Format</h5>
+            <p>
+                Select whether you want the file as a video (MP4) or audio (MP3). Some tools support more formats like WEBM or AAC.
+            </p>
+        
+            <h5>4. Pick a Quality Level</h5>
+            <p>
+                Choose from available resolutions—such as 1080p, 720p, or lower—or audio bitrates if downloading MP3.
+            </p>
+        
+            <h5>5. Download</h5>
+            <p>
+                Click the “Download” button and your file will begin processing. After a few moments, it will be available for you to save locally.
+            </p>
+        
+            <h5>6. Playlist Support</h5>
+            <p>
+                Some tools let you download entire playlists. Simply paste the playlist link and select batch download (if supported).
+            </p>
+        
+            <p><strong>Note:</strong> Always respect copyright and avoid re-uploading or distributing downloaded content without proper authorization.</p>
+        
+            <p>Need more help? Visit our <a rel="nofollow" target="_blank" href="https://yourwebsite.com/youtube-downloader-guide">Help Center</a> for FAQs and troubleshooting.</p>
+        </div>
+        
+        
+
+       
+         
+
+
+
+    
+        
+
+        <br/>
+        <!-- <p>Current Limit: ~415 words or 3,500 characters / day | Powered by MS</p> -->
+        <p>Get in touch? Mail us: <br/>    <strong style="font-size: 16px;">info@ainhub.com</strong>  </p>
+        <p>Need to convert more text to speech? <a href="subscribe/">Become a Member here</a> for  premium access.</p>
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Set up AJAX to include CSRF token
+        $.ajaxSetup({
+            headers: {
+                'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val()
+            }
+        });
+
+        $('#fetch_video_info').click(function() {
+            let videoUrl = $('#video-url').val().trim();
+            if (!videoUrl) {
+                alert('Please enter a valid video URL');
+                return;
+            }
+            $(this).text('Fetching...');
+
+            $.ajax({
+                url: '/get-video-info/',
+                type: 'GET',
+                data: { 'video_url': videoUrl },
+                success: function(response) {
+                    if (response.error) {
+                        $('#error-message').text(response.error);
+                        $('#fetch_video_info').text('Get Video Info');
+                    } else {
+                        $('#video_info').show();
+                        $('#video_size').show();
+                        $('#video_size').removeClass('hide_on_load').css('visibility', 'visible');
+                        $('#title').text(response.title);
+                        $('#thumbnail').attr('src', response.thumbnail);
+                        $('#size').text(response.size);
+                        $('#format').text(response.format);
+                        $('#video-format').prop('disabled', false);
+                        $('#download_button').prop('disabled', false);
+                        $('#fetch_video_info').text('Get Video Info');
+                    }
+                },
+                error: function() {
+                    $('#error-message').text('Failed to fetch video info. Try again.');
+                    $('#fetch_video_info').text('Get Video Info');
+                }
+            });
+        });
+
+        $('#downloadForm').submit(function(event) {
+        event.preventDefault();
+
+        let videoUrl = $('#url').val().trim();
+        let videoFormat = $('#video-format').val();
+        $('#error-message').hide();
+        $('#download-link').html('');
+        $('#download_button').prop('disabled', true).text('Downloading...');
+        $('#download-link').hide();
+        $('#progressBar').show();
+        $('#progress').css('width', '0%');
+
+        let progress = 0;
+        let interval = setInterval(() => {
+            if (progress >= 100) clearInterval(interval);
+            else {
+                progress += 10;
+                $('#progress').css('width', progress + '%');
+            }
+        }, 400);
+
+        $.ajax({
+            url: '/youdownload/',
+            type: 'POST',
+            data: {
+                video_url: videoUrl,
+                video_format: videoFormat,
+                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+            },
+            success: function(response) {
+                clearInterval(interval);
+                $('#progress').css('width', '100%');
+                if (response.success) {
+                    console.log(response);
+                    $('#download-link').html('<a href="' + response.download_url + '" download>Download Video</a>').show();
+
+                                    // Send a request to delete the file after download
+                    // $.ajax({
+                    //     url: '/delete-file/',  // Create a route for file deletion
+                    //     type: 'POST',
+                    //     data: {
+                    //         file_path: response.download_url,  // Send the path of the file to be deleted
+                    //         csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+                    //     },
+                    //     success: function(deleteResponse) {
+                    //         console.log('File deleted successfully');
+                    //     },
+                    //     error: function(deleteResponse) {
+                    //         console.log('Error deleting file');
+                    //     }
+                    // });
+
+                } else {
+                    $('#error-message').html(response.message).show();
+                }
+                $('#download_button').prop('disabled', false).text('Download Video');
+            },
+            error: function(response) {
+                clearInterval(interval);
+                $('#progressBar').hide();
+                let errorMessage = response.responseJSON?.message || 'An error occurred.';
+                $('#error-message').html(errorMessage).show();
+                $('#download_button').prop('disabled', false).text('Download Video');
+            }
+        });
+    });
+    });
+</script>
+
+</body>
+{% endblock %}
+
+
+</html>

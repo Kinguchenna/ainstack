@@ -1,0 +1,23 @@
+<!-- templates/blog/blog_detail.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ blog.title }}</title>
+</head>
+<body>
+    <h1>{{ blog.title }}</h1>
+    <p><strong>Category:</strong> {{ blog.category }}</p>
+    <p>{{ blog.description }}</p>
+    {% if blog.image %}
+        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" style="max-width: 300px;">
+    {% endif %}
+    <p>
+        <a href="{% url 'blog_update' blog.pk %}">Edit</a> |
+        <form method="POST" action="{% url 'blog_delete' blog.pk %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+        </form> |
+        <a href="{% url 'blog_list' %}">Back to List</a>
+    </p>
+</body>
+</html>

@@ -1,0 +1,120 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %}Supported Text-to-Speech{% endblock %}
+
+{% block content %}
+ 
+
+<body>
+    {% include 'partials/logo.html' %}
+
+    <div id="body">
+        <h1>🎤 Free Text-to-Speech & MP3 Converter for US English</h1>
+
+
+
+        <div id="introtext">
+            <p style="text-align:left;">
+                 Instantly convert your <strong>US English</strong> text into high-quality speech using Microsoft Edge TTS voices —
+                  completely free. Ideal for <em>e-learning</em>, <em>YouTube narration</em>, <em>presentations</em>, and more.
+                  
+      
+                Choose from multiple neural voices, including male and female options. Once processed, your audio is downloadable in <code>.mp3</code> format.
+            
+                These realistic voices are powered by <strong>Microsoft Edge TTS</strong> and support SSML enhancements like pitch, speed, emphasis, and whisper effects.
+            </p> 
+
+        </div>
+   
+
+ 
+
+        
+ 
+        
+
+        <style>
+            .voices-container {
+                max-width: 100%;
+                width: 97%;
+                margin: 10px auto;
+                padding: 20px;
+                border: 1px solid #e0e0e0;
+                border-radius: 12px;
+                background: #f9f9f9;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            }
+        
+            .voices-container h3 {
+                margin-bottom: 20px;
+                font-size: 1.5rem;
+                color: #333;
+                text-align: center;
+            }
+        
+            .voice-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+        
+            .langbox {
+                background: #ffffff;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 12px 16px;
+                font-size: 1rem;
+                color: #333;
+                text-align: center;
+                min-width: 180px;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            }
+        
+            .langbox:hover {
+                background-color: #f0f8ff;
+                border-color: #4a90e2;
+                cursor: pointer;
+                transform: translateY(-2px);
+            }
+        
+            @media (max-width: 600px) {
+                .langbox {
+                    min-width: 94%;
+                }
+            }
+        </style>
+        
+        <div class="voices-container" style="text-align: justify; width: 70%; padding: 30px; border: 2px solid #cecece; padding-top: 10px; margin-top: 5px;" >
+            <h3>All Voices:</h3>
+        
+            {% if voices %}
+            <div class="voice-grid">
+                {% for voice in voices %}
+                <a href="{{ voice.ShortName }}" style="text-decoration: none;">
+                    <div class="langbox">{{ voice.FriendlyName }}</div>
+                </a>
+                {% endfor %}
+            </div>
+            {% else %}
+            <p style="text-align: center; color: #999;">No voices available.</p>
+            {% endif %}
+        </div>
+        
+
+            <br/>
+            {% include 'partials/navigator.html' %}        
+        <br/>
+        <p>Current Limit: ~375 words or 3,000 characters / day | Powered by AWS Polly</p>
+        <p>Get in touch? Mail us: <br/><img alt="mail contact" width="200" height="30" src="{% static 'images/mail.png' %}" /></p>
+        <p>Need to convert more text to speech? <a href="/register?click=direct">Register here</a> for a 24 hour premium access.</p>
+    </div>
+
+
+     
+
+</body>
+
+{% endblock %}
+</html>

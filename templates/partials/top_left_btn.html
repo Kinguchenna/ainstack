@@ -1,0 +1,19 @@
+{% load static %}
+
+<div class="top_left_buttons">
+    <button class="hide_on_mobile"> <a href="{% url 'subscribe' %} "> Start your free trial </a> </button>
+    <button>
+        {% if user.is_authenticated %}
+        {% if request.path == '/dashboard' %}
+         <a href="/logout">Logout</a>
+        {% else %}
+         <a href="/dashboard">Dashboard</a>
+        {% endif %}
+       
+        {% else %}
+        <a href="/login">Login</a>
+        {% endif %}
+
+    </button>
+    <button id="shareBtn"> Share </button>
+</div>

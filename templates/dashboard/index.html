@@ -1,0 +1,165 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %}Free Text-To-Speech for all languages & MP3 Download | ainhub.com/txt2mp4{% endblock %}
+{% block description %}Easily convert text to natural US English voice and 150+ languages/accents for free. Listen
+online or download as MP3.{% endblock %}
+{% load humanize %}
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+{% block content %}
+
+<style>
+    .text_container {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    @media (max-width: 700px) {
+        table {
+            width: 80% !important;
+            padding: 0px;
+        }
+    }
+</style>
+
+<body>
+
+    {% include 'partials/header.html' %}
+
+    <main class="main_area">
+
+
+        {% include 'partials/dashbord_slider.html' %}
+
+
+
+
+
+
+        <div class="main_content">
+
+            <!-- <button id="toggleBtn0" class="toggle-btn">☰</button> -->
+            {% include 'partials/message.html' %}
+            {% include 'partials/dash_top_left_btn.html' %}
+
+            <div class="page_content">
+                <h2>What will you like to achieve today?</h2>
+
+
+                <div class="text_container">
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-title">Total Users</div>
+                            <div class="stat-value">{{total_user}}</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-title">Balance</div>
+                            <div class="stat-value">{{balance|intcomma}}</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-title">Total Visits</div>
+                            <div class="stat-value">89,101</div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="text_container">
+                    <table id="example" class="display responsive nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Date</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if users %}
+                            {% for user in users %}
+                            <tr>
+                                <td> {{user.username}}  </td>
+                                <td>   {{user.email}} </td>
+                                <td>{{user.created_at}}</td> 
+                            </tr>
+                            {% endfor %}
+                            {% endif %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+    </main>
+
+
+
+
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                responsive: true
+            });
+        });
+    </script>
+
+
+
+
+
+
+    <script>
+
+        const toggleBtn = document.getElementById('toggleBtn');
+        const toggledashboRDBtn = document.getElementById('toggledashboRDBtn');
+
+        const dashbord_slider = document.getElementById('dashbord_slider');
+        const overlay = document.getElementById('overlay');
+        const mainContent = document.querySelector('.main_content');
+        // sidebar.classList.toggle('open');
+        // overlay.classList.toggle('show');
+        toggleBtn.addEventListener('click', () => {
+            // alert("Ho");
+            dashbord_slider.classList.toggle('hidden');
+            // mainContent.classList.toggle('expanded');
+        });
+
+        toggledashboRDBtn.addEventListener('click', () => {
+            dashbord_slider.classList.toggle('hidden');
+        });
+
+    </script>
+
+
+
+
+</body>
+
+{% endblock %}
+
+</html>
